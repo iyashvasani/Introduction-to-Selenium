@@ -1,0 +1,691 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Introduction to Selenium</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="126c3d4d-0eb0-4f28-8825-6b9b4b8b3787" class="page sans"><header><img class="page-cover-image" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Selenium_logo.svg_.png" style="object-position:center 50%"/><h1 class="page-title">Introduction to Selenium</h1><p class="page-description"></p></header><div class="page-body"><h1 id="b531f700-76ce-4dca-8471-21cbcb970096" class="">Manual Testing?</h1><p id="c13a72d4-63a1-47fa-9a85-a9047d67d858" class="">Manual testing mainly involves the physical execution of test cases against various applications to detect bugs and errors</p><h2 id="7270e6ee-48d1-4943-a6a9-d808281bbc7a" class="">Feature of Manual Testing</h2><ul id="724169cb-9348-4992-bde1-fef6ddb56268" class="bulleted-list"><li style="list-style-type:disc">One of the primitive methods of testing software</li></ul><ul id="3e28e26f-b0e7-4041-b08d-93c74eba055a" class="bulleted-list"><li style="list-style-type:disc">Do not require the knowledge of a testing tool</li></ul><ul id="90b4aa01-5b07-4511-b648-373dd206cba3" class="bulleted-list"><li style="list-style-type:disc">Can practically test any application</li></ul><ul id="2b4ce63c-8a63-4b5e-a0e8-d3da1abd5e7b" class="bulleted-list"><li style="list-style-type:disc">Execution of test cases without using automation tools</li></ul><h2 id="c1805c33-98c3-4e84-be72-ef724f6ba677" class="">Limitation of Manual Testing</h2><ul id="388c1a5a-8b4e-4f3f-bd6a-e0603d912a55" class="bulleted-list"><li style="list-style-type:disc">Extremely time-consuming</li></ul><ul id="4a9af0d3-714d-4f1e-a124-383ad18f6c9d" class="bulleted-list"><li style="list-style-type:disc">Requires a tester all the time</li></ul><ul id="0d94a927-a367-4e40-861e-d6b58ba17701" class="bulleted-list"><li style="list-style-type:disc">Manual creation of logs and repositories</li></ul><ul id="3c99cabb-66b4-4dc9-8c70-523e8f1dabca" class="bulleted-list"><li style="list-style-type:disc">High risk of error</li></ul><ul id="596df76a-f5b9-4a56-9cee-b092a40613f8" class="bulleted-list"><li style="list-style-type:disc">Limited scope for testing</li></ul><ul id="0db9ae2f-b1f8-4522-9677-e8deacb22d0f" class="bulleted-list"><li style="list-style-type:disc">No support for performance and batch testing</li></ul><h1 id="c919e828-08c4-4385-8f8f-06c34228bc9e" class="">What is Selenium?</h1><ul id="66233a76-14b3-4920-aa27-dc1ddda2e99f" class="bulleted-list"><li style="list-style-type:disc">Selenium is an automated testing tool used to test web applications across various browsers</li></ul><ul id="324cb2a4-4965-479c-b272-4a6626e8b03c" class="bulleted-list"><li style="list-style-type:disc">Jason Huggins, an engineer at ThoughtWorks, Chicago found the repetitious work of manual testing to be strenuous and monotonous</li></ul><ul id="bc5289e3-1253-4e54-9b62-812df6114db9" class="bulleted-list"><li style="list-style-type:disc">Не developed a JavaScript program to automate the testing of a web application<br/>The program was called JavaScriptTestRunner<br/></li></ul><ul id="845c58ab-a37f-4f33-9171-0db803f1a540" class="bulleted-list"><li style="list-style-type:disc">Initially, the new invention was deployed by the inmates at Thoughtworks. However, in 2004 it was renamed Selenium and was made open-source</li></ul><h2 id="b438c646-a0ed-4a6f-b88d-3f9a0caa8ef3" class="">How does Selenium help?</h2><ul id="c35e1811-6c5c-4152-8780-630c4c4e9a70" class="bulleted-list"><li style="list-style-type:disc">Speed of execution</li></ul><ul id="7ac0a967-da79-4983-a269-073a34a20960" class="bulleted-list"><li style="list-style-type:disc">Accurate results</li></ul><ul id="caf31780-a092-47e3-90d5-e6109ea3c52e" class="bulleted-list"><li style="list-style-type:disc">Lesser investment in human resources</li></ul><ul id="43b75197-9f4d-4bf9-be1d-b4f21d9ac595" class="bulleted-list"><li style="list-style-type:disc">Time and cost-effective</li></ul><ul id="974fe9b7-a8ec-49c9-88ea-8fd1d0252f24" class="bulleted-list"><li style="list-style-type:disc">Early time to market</li></ul><ul id="68b5f570-652f-4914-9ab0-88de2516bf85" class="bulleted-list"><li style="list-style-type:disc">Supports re-testing</li></ul><h2 id="0df64c02-f025-40a4-8a54-9113f55a273c" class="">Feature of Selenium Testing</h2><ul id="1b07c0ab-d9c6-44f9-b195-2f19394cb72d" class="bulleted-list"><li style="list-style-type:disc">Open source</li></ul><ul id="229bb2f6-3a9c-4570-b336-41ab6f76a19c" class="bulleted-list"><li style="list-style-type:disc">Consists of a set of software tools that facilitate testing</li></ul><ul id="254d7bdd-eed5-419a-a541-2de505b581d1" class="bulleted-list"><li style="list-style-type:disc">Primarily developed in JavaScript</li></ul><ul id="1f64f405-193c-4b49-8250-3436df93f031" class="bulleted-list"><li style="list-style-type:disc">Provides a record/playback tool for authoring tests without learning a test scripting language</li></ul><ul id="31f5070d-89ad-4413-af18-1484890e64c8" class="bulleted-list"><li style="list-style-type:disc">It can be coded in many programming languages</li></ul><ul id="c83e91b4-ae74-432a-9780-5ad1c90ccb9d" class="bulleted-list"><li style="list-style-type:disc">Browser and platform independent</li></ul><ul id="d1d7fcb1-6591-492d-96fb-8efcd22b0693" class="bulleted-list"><li style="list-style-type:disc">Ease of implementation</li></ul><ul id="cf93b160-3330-43b6-8701-669120ce51a5" class="bulleted-list"><li style="list-style-type:disc">Reusability and add-ons</li></ul><h2 id="41aa802e-a14a-4c4c-8321-f7c92b254f17" class="">Limitation Testing</h2><ul id="8934e562-b410-4c2e-bc63-dd2a4bcd6059" class="bulleted-list"><li style="list-style-type:disc">It may require knowledge of programming languages</li></ul><ul id="3334fdb7-34ec-4642-8e0e-62b7dacf0169" class="bulleted-list"><li style="list-style-type:disc">Limited test management</li></ul><ul id="fab8fb90-434a-4c48-8914-96f272c12b13" class="bulleted-list"><li style="list-style-type:disc">No built-in reporting facility</li></ul><p id="bd4198aa-6fd3-4aaa-ac5b-02dfd9d273a1" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="6ab4f5ef-5fd9-4943-b168-59377d385d61"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Since its inception, Selenium has been a powerful automation testing tool to test various web applications across different platforms</div></figure><h1 id="9aea98d1-19d2-49a7-ad1d-9d05afed2632" class="">Selenium suite of tools</h1><figure id="f184b0d7-cce2-4ce9-b8f1-36e260bfed7d" class="image" style="text-align:left"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled.png"><img style="width:480px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled.png"/></a></figure><h1 id="4a495532-19e8-4070-99f3-40e04e50ea6c" class="">Selenium Versions</h1><figure id="9f834cb3-222d-4fa2-b16c-ce4a87ce0df8" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/7c5ef76e-11cb-4130-8c8f-684d73658938.png"><img style="width:708px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/7c5ef76e-11cb-4130-8c8f-684d73658938.png"/></a></figure><h1 id="092edad9-007d-42a5-9b17-32286db0e9cd" class="">Working principle of Selenium RC (Selenium 2)</h1><figure id="14fd3dc0-fa98-438a-9f1f-125a1f4103fe" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%201.png"><img style="width:1974px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%201.png"/></a></figure><h3 id="a63bd1c9-7e83-42a8-a5cd-0ad267c75c60" class="">Selenium Test Script: </h3><ul id="499dbc17-c5c4-4388-a92a-24a4fbd320c1" class="bulleted-list"><li style="list-style-type:disc">Test script is written in any programming language like JAVA, PHP, Python etc.</li></ul><h3 id="650be3c5-1992-4293-99c7-cfb94b74fcc6" class="">Remote Control(RC) Server:</h3><ul id="32a193f4-e3f4-4b42-af84-855bd67862f8" class="bulleted-list"><li style="list-style-type:disc">Selenium Server receives Selenium commands from your test program, interprets them, and reports the results back to the program</li></ul><h3 id="8e6bf724-2b4f-4a43-a0cb-f4e0344c6240" class="">Web Browser: </h3><ul id="7336afc5-d725-4f6e-afcd-d19ab01e9ff6" class="bulleted-list"><li style="list-style-type:disc">The Web browser is injected with Selenium core which interprets and executes the Selenese commands used in the test script</li></ul><h3 id="146b2907-465e-4919-b352-957403ea4554" class="">Web Server: </h3><ul id="b18c37d4-526b-4514-bd95-508af4b15e50" class="bulleted-list"><li style="list-style-type:disc">The Web browser can now interact with the web server accordingly</li></ul><h3 id="a7b0f787-7800-493c-a1db-cb0057ae0093" class="">Shortcomings of Selenium RC</h3><ul id="20fae9e8-1ae5-4345-a0e0-7c01cef64b15" class="bulleted-list"><li style="list-style-type:disc">RC consists of an additional server that acts as a middleman</li></ul><ul id="3394a4a1-4616-4b74-aeb0-f09d58b40930" class="bulleted-list"><li style="list-style-type:disc">This additional setup complicates the architecture</li></ul><ul id="db8e450a-df24-498d-9ce5-adf5ad40dcea" class="bulleted-list"><li style="list-style-type:disc">The time taken for the execution of commands is longer</li></ul><h1 id="2e562c55-1f15-49df-aba3-86e3db76baf9" class="">Working principle of WebDriver (Selenium 3 and above)</h1><figure id="a7ee5fa9-0f85-4ced-b9b0-791352708855" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%202.png"><img style="width:1966px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%202.png"/></a></figure><ul id="f11c4ed5-2802-43fd-91b3-fffcf85dd640" class="bulleted-list"><li style="list-style-type:disc">Selenium-WebDriver does not use an additional server</li></ul><ul id="91eb9003-9205-4185-83eb-8fc15406f230" class="bulleted-list"><li style="list-style-type:disc">It makes direct calls to the browser using each browser&#x27;s native support for automation</li></ul><ul id="79ee7529-49eb-44a9-8aac-d3dd068c52d6" class="bulleted-list"><li style="list-style-type:disc">The execution time for commands is shorter due to the simple architecture</li></ul><h1 id="5f46e8c5-00eb-4edf-b6b8-cd29982883a1" class="">Selenium suite of tools are:</h1><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">1. Selenium IDE</summary><div class="indented"><ul id="1fa93846-f4a3-4faf-97e1-b97de073efe7" class="bulleted-list"><li style="list-style-type:disc">Developed by Shinya Kastani in 2006</li></ul><ul id="59bb603e-094e-4577-b7fd-e509ff9f97fb" class="bulleted-list"><li style="list-style-type:disc">Firefox add-on that helps create tests</li></ul><ul id="e94d9e29-72f7-49e3-83ec-44026de7631d" class="bulleted-list"><li style="list-style-type:disc">Easy-to-use interface to build automated test scripts</li></ul><ul id="a2fc75a1-4812-42fe-b22e-9a7edcdefc6b" class="bulleted-list"><li style="list-style-type:disc">Records user interactions on the browser and exports them as a reusable script</li></ul><ul id="19d3acb6-643f-44cf-b458-adfdf4e6d14a" class="bulleted-list"><li style="list-style-type:disc">Generally used as a prototyping tool</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2a16f8c3-9c8e-4c60-9b54-1bf203357234"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Selenium IDE is a part of the Selenium suite and was developed to speed up the creation of automation scripts. It&#x27;s a rapid prototyping tool and can be used by engineers with no programming knowledge whatsoever</div></figure><h2 id="ed3edbda-6567-4f23-bdd2-5393cfdeffa7" class="">Advancements with new Selenium IDE</h2><ul id="f7d43b7c-64c3-44c4-9902-2d4fe2481474" class="bulleted-list"><li style="list-style-type:disc">Re-usability of test scripts</li></ul><ul id="c5394a34-35de-4f83-95fa-b06071f22465" class="bulleted-list"><li style="list-style-type:disc">Debugging the scripts</li></ul><ul id="0d9c404d-47dd-4cef-90c8-775fe2457088" class="bulleted-list"><li style="list-style-type:disc">Selenium side runner</li></ul><ul id="763d548c-bcbd-486d-a7cb-56e7c8291f7d" class="bulleted-list"><li style="list-style-type:disc">Provision for control flow statements</li></ul><ul id="12ab3335-7d9e-43db-b53e-3b2607dcad6f" class="bulleted-list"><li style="list-style-type:disc">Improved locator functionality</li></ul><ul id="8ee8c10a-6c81-4ac5-b31d-fc91060a7aa4" class="bulleted-list"><li style="list-style-type:disc">Traditionally Selenium IDE was only a Firefox plugin. The new IDE supports both Chrome and Firefox</li></ul><ul id="7e0108e0-a37b-4c27-a76e-0a198dc726ab" class="bulleted-list"><li style="list-style-type:disc">Improved locator functionality</li></ul><ul id="2801cd0b-b377-4d30-a3a2-9ab635accdc0" class="bulleted-list"><li style="list-style-type:disc">Parallel execution of tests using Selenium command line runner</li></ul><ul id="4edf8417-eed4-45cd-b20f-34346a210001" class="bulleted-list"><li style="list-style-type:disc">Provision for control flow statements </li></ul><ul id="bd430ad7-1ca2-4619-9d80-bf0b6fd87cb4" class="bulleted-list"><li style="list-style-type:disc">Automatically waits for the page to load</li></ul><ul id="2b72703d-46e0-4fd0-9791-3b2b3d5be982" class="bulleted-list"><li style="list-style-type:disc">Supports embedded code-Runs JavaScripts</li></ul><ul id="596f9f67-005c-42b3-a259-f8eab2df13a4" class="bulleted-list"><li style="list-style-type:disc">IDE has a debugger which allows step execution, adding breakpoints</li></ul><ul id="68433829-1f85-45fc-ae2f-3c79ea8d9f38" class="bulleted-list"><li style="list-style-type:disc">The new version supports code exports</li></ul><h2 id="e9b93cfe-1694-4276-b084-2ca195647d69" class="">Limitations of Selenium IDE</h2><ul id="8ac1128f-59e7-4001-ac21-853c52811a01" class="bulleted-list"><li style="list-style-type:disc">Cannot export to WebDriver scripts yet</li></ul><ul id="bdd3b65c-65eb-4098-bcff-e57ad56b0b38" class="bulleted-list"><li style="list-style-type:disc">It does not support data-driven testing yet</li></ul><ul id="2c5fca28-278d-488d-b176-897d30322c2e" class="bulleted-list"><li style="list-style-type:disc">Cannot perform database testing</li></ul><ul id="6ac4f0ac-426b-485a-80a5-6d71413dccd2" class="bulleted-list"><li style="list-style-type:disc">Cannot provide detailed test report</li></ul><h2 id="85a7eb9b-1227-4743-9a70-69ce7eb6af5a" class="">Working Principle of Selenium IDE</h2><figure id="262b7a07-7fb6-487a-a3bd-1ffc63c4d003" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%203.png"><img style="width:1986px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%203.png"/></a></figure><h2 id="cbad5e8e-27ff-426f-a52a-8b3d31074a9d" class="">Commands in Selenium</h2><figure id="f1f88d69-9271-4b01-bf00-04bee66ea363" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%204.png"><img style="width:1986px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%204.png"/></a></figure><figure id="b6375c08-47cd-4e28-a0c6-ab5d1d96477c" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%205.png"><img style="width:896px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%205.png"/></a></figure><figure id="57b33727-a55a-4338-9739-c6e72f82c138" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%206.png"><img style="width:2096px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%206.png"/></a></figure><figure id="20c8e650-ecc7-410b-82f7-b28afe4a05b0" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%207.png"><img style="width:708px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%207.png"/></a></figure><h2 id="041b79f5-c051-41fb-b379-e420235fc1a1" class="">Key Features of Selenium IDE</h2><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Re-usability of test scripts</summary><div class="indented"><ul id="f7b0f65f-cb40-44f6-9dd7-44e02049e86c" class="bulleted-list"><li style="list-style-type:disc">Many of the test scripts have test steps that involve signing into an application or creating an account or signing out of an app</li></ul><ul id="1f2da841-ccb0-4e52-b1c6-8fa8014cf986" class="bulleted-list"><li style="list-style-type:disc">It is redundant and a waste of time to recreate these test steps over and over</li></ul><ul id="480176ae-5e69-417a-b4a4-82352b927d90" class="bulleted-list"><li style="list-style-type:disc">The new Selenium IDE allows one script to run on another script (In short calling the one script into another script)</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Debugging in IDE</summary><div class="indented"><ul id="493e0667-f47d-4e00-ab3b-d80de3831106" class="bulleted-list"><li style="list-style-type:disc">The Selenium IDE facilitates debugging of test scripts</li></ul><ul id="bf160cfa-244a-4501-bbe6-c0a1723cb20e" class="bulleted-list"><li style="list-style-type:disc">It allows the user to provide breakpoints where the execution of the test script halts, thus allowing the user to inspect the browser&#x27;s state</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3342e63f-c647-4579-a6b5-a74c58e3729f" class="code"><code class="language-Python">1. Step Execution</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9e2b0e20-d888-422e-9110-c92b82416888" class="code"><code class="language-Python">2. Breakpoints
+	 -Adding
+	 -Removing
+	 -Disabling</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ed5e97f0-fc32-44b7-b78f-8e1746306d8f" class="code"><code class="language-Python">3. Enter the debugger by using the &quot;Play to this point&quot; option </code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fe419e42-ddad-457e-8a1c-6211e28b4bd9" class="code"><code class="language-Python">4. &quot;Debugger&quot; command in the script</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4d012ec6-f9a0-4ae6-8026-0bfe564047f5" class="code"><code class="language-Python">5. Pause on Exception</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Control flow statements</summary><div class="indented"><ul id="de8e77fb-7333-474a-89fb-8fdf638432a0" class="bulleted-list"><li style="list-style-type:disc">Various pop-ups, notifications, subscription windows, etc can be handled easily using control flow statements</li></ul><ul id="2295ce77-669b-407a-81ee-3be9318bc214" class="bulleted-list"><li style="list-style-type:disc">If &quot;X&quot; appears, do &quot;this&quot; to handle it</li></ul><ul id="d2f34f1c-c88e-46e9-9e0b-2afe3b73c1aa" class="bulleted-list"><li style="list-style-type:disc">Conditional logic (control flow) statements can be added to the IDE test script</li></ul><ul id="6fa39969-0b40-443b-8fcf-111f6e47bcc9" class="toggle"><li><details open=""><summary><strong>Conditional Branching</strong></summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5539cc9e-5c91-4db3-b0e7-75a99c0da66b" class="code"><code class="language-Python">if...else...end</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b9e1eb5f-6473-4835-ab34-4c65be493dac" class="code"><code class="language-Python">if...else if...else...end</code></pre><figure id="488e24ba-a23b-40bb-8f28-08e02429300d" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%208.png"><img style="width:1358px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%208.png"/></a></figure></details></li></ul><ul id="ba460ab8-dc80-4c73-a741-60775c03581a" class="toggle"><li><details open=""><summary><strong>Looping</strong></summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c6ee9a2e-03a2-46d5-afc0-155771974d32" class="code"><code class="language-Python">&quot;While, end&quot;
+#The code between the While and end is executed until the expression is true</code></pre><figure id="f8f584c9-c397-4194-8505-e3009ad922fc" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%209.png"><img style="width:652px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%209.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="048b62bb-94ef-411c-be08-755feea787c1" class="code"><code class="language-Python">&quot;do, repeat if&quot; (similar to &quot;do, while end&quot;)
+#The commands after the do will be executed first 
+#and then the condition in if is evaluated</code></pre><figure id="78a75010-b6c0-4680-bbd5-65ca9156b94c" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2010.png"><img style="width:1398px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2010.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="29ec1f7f-8e2c-4fbd-8dff-ebc15554be4c" class="code"><code class="language-Python">&quot;times, end&quot;
+#You can specify the number of iterations you would 
+#like to perform a set of commands</code></pre><figure id="62337940-d12a-4c76-a15b-16bfbe6b5467" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2011.png"><img style="width:1400px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2011.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5ccd58d6-7ea3-40a4-8580-92368a528ade" class="code"><code class="language-Python">&quot;for each&quot;
+#This provides the ability to iterate over a collection object [JS array].
+#For each entry in the array a set of commands is executed</code></pre></details></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Selenium Side Runner</summary><div class="indented"><ul id="433c4dfb-dbe2-49a0-a916-d8ae8a82445a" class="bulleted-list"><li style="list-style-type:disc">The new Selenium IDE allows the users to run all Selenium IDE tests on any browser, in parallel, and on a Grid without needing to write any code</li></ul><ul id="e58e5d02-1070-4a77-a13a-0a7c0bc754c6" class="bulleted-list"><li style="list-style-type:disc">This ensures that the test suite executes faster</li></ul><p id="0b279757-2e9d-4b66-8ff3-9c7ea3686b46" class=""><code>Prerequisites-</code></p><ul id="45e1d4ba-c45e-4354-adc0-8ad627b10c66" class="bulleted-list"><li style="list-style-type:disc"><code>Node version 8 or 10</code></li></ul><ul id="4403f48d-1c00-441d-a2a2-11e941eccef5" class="bulleted-list"><li style="list-style-type:disc"><code>npm package that typically gets installed with Node</code></li></ul><ul id="952490e1-08f2-4966-9258-609f3a5f73eb" class="bulleted-list"><li style="list-style-type:disc"><code>Selenium-side-runner</code></li></ul><ul id="248df1f5-1880-4ce8-af2b-09298c7cc5db" class="bulleted-list"><li style="list-style-type:disc"><code>Browser driver</code></li></ul><ul id="296b7f7b-4f2e-4e01-8683-6d971f80b463" class="toggle"><li><details open=""><summary><strong>Command Line Runner</strong></summary><p id="f73b56b2-8c50-445f-9d50-629f4a02efdd" class="">Documentation: <a href="https://docs.seleniumh.org/selenium-ide/docs/en/introduction/command-line-runner/">https://docs.seleniumh.org/selenium-ide/docs/en/introduction/command-line-runner/</a><br/>To install :<br/></p><ul id="3e15d3f2-080f-42f4-a5d1-da258e6a3625" class="bulleted-list"><li style="list-style-type:disc">You need to install node.js.<br/>Installer: <br/><a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a><br/>-Install selenium-side-runner: <br/><code>npm install -g selenium-side-runner</code></li></ul><ul id="b1306abe-efba-48b4-82c7-e48ad4ef69fc" class="bulleted-list"><li style="list-style-type:disc">Check the installation: <code>selenium-side-runner-version</code></li></ul><ul id="79619ff2-8b8d-489a-8076-5825f05700b7" class="bulleted-list"><li style="list-style-type:disc">Download &amp; Install the browser drivers.<br/>Browser driver download: <br/><a href="https://www.seleniumhq.org/download/">https://www.seleniumhq.org/download/</a></li></ul><ul id="57b0045f-d4c1-4d06-8811-55fc250ee62b" class="bulleted-list"><li style="list-style-type:disc">Browser driver install: <code>npm install -g chromedriver</code></li></ul><ul id="836d7877-607c-45c7-bafb-14bc6e9a045c" class="bulleted-list"><li style="list-style-type:disc">To execute tests :<ul id="a456781a-a3b8-4169-bd4f-6f31765656e0" class="bulleted-list"><li style="list-style-type:circle"><code>selenium-side-runner &lt;projectname.side&gt;</code></li></ul><ul id="8eaf00dd-c913-4428-afa4-6282ceac2f56" class="bulleted-list"><li style="list-style-type:circle"><code>selenium-side-runner -с &quot;browser Name-firefox&quot; &lt;projectname.side&gt;</code></li></ul></li></ul></details></li></ul><p id="0d0b52f9-5c68-4b07-b896-6a4595401d31" class="">
+</p></div></details></div></details><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">2. Selenium RC</summary><div class="indented"><ul id="2dac7342-1c21-4be2-b9a7-bac618cc5e9d" class="bulleted-list"><li style="list-style-type:disc">Paul Hammant developed Selenium RC</li></ul><ul id="c46d03cb-c4a7-4c05-8452-4a296cf60ecf" class="bulleted-list"><li style="list-style-type:disc">Selenium RC is a server written in Java</li></ul><ul id="494720ef-fe2c-4bf7-9901-e5999265e331" class="bulleted-list"><li style="list-style-type:disc">RC makes provision for writing application tests in various programming languages like Java, C#, Perl, PHP, Python etc</li></ul><ul id="57cfa731-debb-4ba1-9164-5562129c120b" class="bulleted-list"><li style="list-style-type:disc">The RC server accepts commands from the user program and passes them to the browser as Selenium-Core JavaScript commands</li></ul><ul id="4ce3dddf-3565-411d-b154-07e9cd841c69" class="bulleted-list"><li style="list-style-type:disc">The browser works accordingly</li></ul><figure id="fdec1151-5bff-4ff1-b539-0b53039da1d3" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2012.png"><img style="width:720px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2012.png"/></a></figure><figure id="bdff7147-158d-4125-bf84-8597d06bf2a9" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2013.png"><img style="width:708px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2013.png"/></a></figure><h2 id="2baccc43-719c-403b-9e09-6a818ac9e12c" class="">Drawbacks of Selenium RC</h2><ul id="ac13c905-f87c-4285-b27a-8070510a0dc1" class="bulleted-list"><li style="list-style-type:disc">RC consists of an additional server that acts as a middleman</li></ul><ul id="0adf1c13-fc64-40e8-83be-9614362e96bf" class="bulleted-list"><li style="list-style-type:disc">This additional setup complicates the architecture</li></ul><ul id="4bf3652b-42fc-4ac6-a3ee-e9f9c3e6d1ad" class="bulleted-list"><li style="list-style-type:disc">The time taken for the execution of commands is longer</li></ul><ul id="92d6d5c9-4241-472a-b2a2-54eab5a8efe5" class="bulleted-list"><li style="list-style-type:disc">APIs supported by Selenium RC are redundant and confusing</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">3. Selenium WebDriver</summary><div class="indented"><ul id="bd802717-43c6-4d55-94d2-bf020e539bc8" class="bulleted-list"><li style="list-style-type:disc">Founded by Simon Stewart in 2006</li></ul><ul id="c8a6a83e-aba3-4fc5-b3ca-7e1ee1124351" class="bulleted-list"><li style="list-style-type:disc">It is a cross-platform testing framework</li></ul><ul id="265b0082-27c7-4281-b8c6-0e8cc72fe966" class="bulleted-list"><li style="list-style-type:disc">Programming interface to create and run test cases</li></ul><ul id="76877002-7dee-4453-8593-54b37302ce1f" class="bulleted-list"><li style="list-style-type:disc">Makes provision to act on web elements</li></ul><ul id="096d782e-ad19-4de8-b1f0-3761fbf99021" class="bulleted-list"><li style="list-style-type:disc">It does not require a core engine like RC</li></ul><ul id="17515408-14fe-4efa-a3b0-63ea5875ae39" class="bulleted-list"><li style="list-style-type:disc">Supports Java, C#, PHP, Python, Perl, Ruby etc.</li></ul><ul id="e9a03e89-c08d-40e5-8c14-ee89b6df4b1e" class="bulleted-list"><li style="list-style-type:disc">Supports frameworks like TestNG, JUnit, NUnit</li></ul><p id="b1e3ede2-00b1-466d-a5bc-a58702d421b2" class="">
+</p><figure id="c7d7d1e0-3c4b-4a2e-802b-de7a4fe662c4" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2014.png"><img style="width:708px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2014.png"/></a></figure><h2 id="40fa7ae9-74ed-4630-a5ed-d363ff30b3f5" class="">Limitations of WebDriver</h2><ul id="0091c8a2-7cb4-47b6-939b-7c232dd754cd" class="bulleted-list"><li style="list-style-type:disc">Can only perform sequential testing hence require Grid for parallel testing</li></ul><ul id="caa71087-fd7f-4bc8-b791-f5cdc36452bb" class="bulleted-list"><li style="list-style-type:disc">Cannot test mobile applications. Requires frameworks like Appium</li></ul><ul id="f68085c0-9578-4615-815b-4f098780e3a9" class="bulleted-list"><li style="list-style-type:disc">Limited reporting. Third-party tools like TestNG are required</li></ul><ul id="89d74769-d9ab-40c7-9a8d-bdd16475e700" class="bulleted-list"><li style="list-style-type:disc">Limited image testing</li></ul><h2 id="588bb9cd-de76-4861-944a-f468eb0dc569" class="">Comparison between Selenium RC and WebDrive.</h2><figure id="25716856-d805-448d-9a3c-181fef19973d" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2015.png"><img style="width:708px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2015.png"/></a></figure><h3 id="c20afdca-a68d-415a-a5de-40bcb8fb54ee" class="">Commands for calling Browser APIs</h3><figure id="81812327-b850-4b80-a335-8cfaa16da3b3" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2016.png"><img style="width:1958px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2016.png"/></a></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">4. Selenium Grid</summary><div class="indented"><ul id="20d0051d-1c62-45e2-a718-9426d30cc1e2" class="bulleted-list"><li style="list-style-type:disc">Developed by Patrick Lightbody</li></ul><ul id="e7a145dc-0150-4351-af03-19db1b118318" class="bulleted-list"><li style="list-style-type:disc">The main objective of Grid is to minimize test execution time</li></ul><ul id="77e5d6be-c87d-48aa-b410-672531009e2b" class="bulleted-list"><li style="list-style-type:disc">Grid was designed to distribute commands to different machines simultaneously</li></ul><ul id="06fcdc51-f762-4060-8a9f-530cf80e0ddd" class="bulleted-list"><li style="list-style-type:disc">Selenium Grid allows the parallel execution of tests on different browsers and different operating systems</li></ul><ul id="82df7d7b-7a29-4518-9c4e-7ec4eeb15cfc" class="bulleted-list"><li style="list-style-type:disc">Grid is exceptionally flexible and is integrated with other suite components for simultaneous execution</li></ul><figure id="211f420c-4f33-486b-af26-5d43d2e175cb" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2017.png"><img style="width:708px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2017.png"/></a></figure><figure id="15320e1c-992f-49b6-ade4-0d4d4860054a" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2018.png"><img style="width:1348px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2018.png"/></a></figure><figure id="879521b1-3469-4579-a25b-6ebdcfb69221" class="image"><a href="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2019.png"><img style="width:1306px" src="Introduction%20to%20Selenium%20126c3d4d0eb04f2888256b9b4b8b3787/Untitled%2019.png"/></a></figure><h2 id="0f7afe1f-9f7f-423f-a380-5f45432bd6a8" class="">Limitations of Grid</h2><ul id="c343282c-9d58-42cd-b69a-1a63f663d633" class="bulleted-list"><li style="list-style-type:disc">Limited scalability cannot scale up or down on demand</li></ul><ul id="1ed1edbc-69bf-4270-bcec-d64ad2196e78" class="bulleted-list"><li style="list-style-type:disc">Static since the nodes are pre-configured, making changes is a challenge</li></ul><ul id="9b9bc5fa-5925-48d6-9f1c-a4bfd9bfb6d9" class="bulleted-list"><li style="list-style-type:disc">Not cloud-native Grid cannot use the distributed storage, automatic fail-over facilities</li></ul><p id="a09b5fb4-338a-4d5d-aab1-dfb84a4bae6a" class="">
+</p></div></details></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
