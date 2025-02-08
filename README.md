@@ -1,2 +1,2 @@
 # Introduction to Selenium
-### Link - https://www.iyashvasani.tech/Introduction-to-Selenium/
+### Link - https://iyashvasani..github.io/Introduction-to-Selenium/
